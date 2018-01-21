@@ -1,0 +1,629 @@
+-- A collection of AppleScripts I use to translate.
+-- No guarantee that they all work.
+-- Thanks to those I've borrowed from!
+
+
+-------------------
+-- ACTIVATE PROGRAMS
+--------------------
+
+
+-- ;b
+tell application "Brackets" to activate
+
+-- ;c
+tell application "Google Chrome" to activate
+
+-- ;w
+Tell application "Microsoft Word" to activate
+
+-- etc.
+
+-----------------------------------
+-- ACTIVATE PROGRAMS + DO SOMETHING
+-----------------------------------
+
+----------------------------------------------
+-- Open Chrome and send cursor to location bar
+-- ;ca  
+---------------------------------------------
+tell application "Google Chrome"
+	tell front window
+		activate
+		if URL of active tab is not equal to
+"chrome://newtab/" then
+			make new tab at end of tabs
+tell application "System Events" to keystroke "l" using command down
+	end if
+	end tell 
+end tell
+
+-----
+
+-- Open Gmail and resize window
+-- NOTE: This works to maximize window; modify for any script that
+needs window resize
+
+set theGmailLink to "YOUR INBOX URL"
+tell application "Google Chrome"
+  activate
+  set allWindows to every window
+
+  repeat with eachWindow in allWindows
+    set allTabs to tabs of eachWindow
+    set i to 0
+
+    repeat with eachTab in allTabs
+      set theURL to get URL of eachTab
+      set i to i + 1
+
+      if theURL contains "mail.google.com" then
+        #I like to keep my windows this size but it can be commented
+out
+        #set the bounds of the eachWindow to {0, 0, 1275, 1800}
+
+        set index of eachWindow to 1
+        if theURL is not equal to theGmailLink then
+          set URL of eachTab to theGmailLink
+        end if
+
+        #focus on the gmail tab
+        set (active tab index of eachWindow) to i
+        return #exit the script if a gmail tab was open already
+      end if
+    end repeat
+  end repeat
+
+  #this gets executed if no gmail tab was open
+  set newTab to make new tab at beginning of tabs of front window
+  set URL of newTab to theGmailLink
+
+  #I like to keep my windows this size but it can be commented out
+  set the bounds of the front window to {0, 0, 1275, 1800}
+end tell
+
+
+--------------------------------------------------
+-- Use a word to launch a website
+-- Easy to remember for semi-frequently used sites
+--------------------------------------------------
+
+-- ;canstyle
+-- When using launcher (e.g. aText), use a word to launch
+semi-frequently used websites
+
+set myLink to
+"http://www.btb.termiumplus.gc.ca/tpv2guides/guides/tcdnstyl/index-eng.html?lang=eng"
+tell application "Google Chrome"
+     activate
+    tell front window to make new tab at after (get active tab) with
+properties {URL:myLink} -- open a new tab after the current tab
+end tell
+
+
+
+
+----------------------------------------
+-- SEND SELECTED TEXT TO REFERENCE SITES
+---------------------------------------
+
+
+----------------------------
+ Send text to thesaurus.com 
+----------------------------
+
+
+on run {input, parameters}
+	
+	
+	-- Automator Service for passing selected text (after
+selection the service from context menu) to Thesaurus.com (works
+in Google Chrome, OS X 10.10 still up-to-date)
+	
+	set inputText to input as string
+	
+	
+	tell application "Google Chrome"
+		activate
+		set theUrl to "http://www.thesaurus.com/browse/"
+& inputText
+		
+		
+		if (count every window) = 0 then
+			make new window
+		end if
+		
+		set found to false
+		set theTabIndex to -1
+		with theWindow in every window
+			set theTabIndex to 0
+			repeat with theTab in every tab of theWindow
+				set theTabIndex to theTabIndex + 1
+				if theTab's URL = theUrl then
+					set found to true
+					exit repeat
+				end if
+			end repeat
+			
+			if found then
+				exit repeat
+			end if
+		end repeat
+		
+		if found then
+			tell theTab to reload
+			set theWindow's active tab index to
+theTabIndex
+			set index of theWindow to 1
+		else
+			tell window 1 to make new tab with
+properties {URL:theUrl}
+		end if
+	end tell
+	
+end run
+
+----------------------------------------
+--Send text to wordreference.com (FR>EN)
+---------------------------------------
+
+-- Automator Service for passing selected text (after selection the
+service from context menu) to google (works in Google Chrome, OS
+X 10.10 still up-to-date)
+on run {input}
+	
+	set inputText to input as string
+	
+	
+	tell application "Google Chrome"
+		activate
+		set theUrl to "https://www.google.ca/#q="
+& inputText
+		
+		
+		if (count every window) = 0 then
+			make new window
+		end if
+		
+		set found to false
+		set theTabIndex to -1
+		repeat with theWindow in every window
+			set theTabIndex to 0
+			repeat with theTab in every tab of theWindow
+				set theTabIndex to theTabIndex + 1
+				if theTab's URL = theUrl then
+					set found to true
+					exit repeat
+				end if
+			end repeat
+			
+			if found then
+				exit repeat
+			end if
+		end repeat
+		
+		if found then
+			tell theTab to reload
+			set theWindow's active tab index to
+theTabIndex
+			set index of theWindow to 1
+		else
+			tell window 1 to make new tab with
+properties {URL:theUrl}
+		end if
+	end tell
+	
+end run
+
+
+----------
+-- Termium
+----------
+
+on run {input, parameters}
+		
+	-- Automator Service for passing selected text (after
+selection the service from context menu) to Termium (works in
+Google Chrome, OS X 10.10 still up-to-date)
+	
+	set inputText to input as string
+	
+	
+	tell application "Google Chrome"
+		activate
+		set theUrl to
+"http://www.btb.termiumplus.gc.ca/tpv2alpha/alpha-eng.html?lang=eng&i=1&srchtxt="
+& inputText
+		
+		
+		if (count every window) = 0 then
+			make new window
+		end if
+		
+		set found to false
+		set theTabIndex to -1
+		repeat with theWindow in every window
+			set theTabIndex to 0
+			repeat with theTab in every tab of theWindow
+				set theTabIndex to theTabIndex + 1
+				if theTab's URL = theUrl then
+					set found to true
+					exit repeat
+				end if
+			end repeat
+			
+			if found then
+				exit repeat
+			end if
+		end repeat
+		
+		if found then
+			tell theTab to reload
+			set theWindow's active tab index to
+theTabIndex
+			set index of theWindow to 1
+		else
+			tell window 1 to make new tab with
+properties {URL:theUrl}
+		end if
+	end tell
+	
+end run
+
+-----
+
+--------------------------------
+-- Send text to google IN QUOTES
+--------------------------------
+
+
+-- Automator Service for passing selected text (after selection the
+service from context menu) to google (works in Google Chrome, OS
+X 10.10 still up-to-date)
+on run {input}
+	
+	set inputText to input as string
+	
+	
+	tell application "Google Chrome"
+		activate
+		set theUrl to "https://www.google.ca/#q="
+& inputText
+		
+		
+		if (count every window) = 0 then
+			make new window
+		end if
+		
+		set found to false
+		set theTabIndex to -1
+		repeat with theWindow in every window
+			set theTabIndex to 0
+			repeat with theTab in every tab of theWindow
+				set theTabIndex to theTabIndex + 1
+				if theTab's URL = theUrl then
+					set found to true
+					exit repeat
+				end if
+			end repeat
+			
+			if found then
+				exit repeat
+			end if
+		end repeat
+		
+		if found then
+			tell theTab to reload
+			set theWindow's active tab index to
+theTabIndex
+			set index of theWindow to 1
+		else
+			tell window 1 to make new tab with
+properties {URL:theUrl}
+		end if
+	end tell
+	
+end run
+
+
+-------------------------------------------------------------------
+-- FR LOOKUP - Send text to Wordreference, Linguee and TLF (3 tabs)
+-- (Work in progress: TLF does not work properly.)
+-------------------------------------------------------------------
+
+on run {input, parameters}
+	
+	
+	-- Automator Service for passing selected text (after
+selection the service from context menu) to Wordreference + TLF
++ Linguee (works in Google Chrome, OS X 10.10 still up-to-date)
+	
+	set inputText to input as string
+	
+	
+	tell application "Google Chrome"
+		activate
+		set theUrl to "http://www.wordreference.com/fren/"
+& inputText
+		
+		
+		if (count every window) = 0 then
+			make new window
+		end if
+		
+		set found to false
+		set theTabIndex to -1
+		repeat with theWindow in every window
+			set theTabIndex to 0
+			repeat with theTab in every tab of theWindow
+				set theTabIndex to theTabIndex + 1
+				if theTab's URL = theUrl then
+					set found to true
+					exit repeat
+				end if
+			end repeat
+			
+			if found then
+				exit repeat
+			end if
+		end repeat
+		
+		if found then
+			tell theTab to reload
+			set theWindow's active tab index to
+theTabIndex
+			set index of theWindow to 1
+		else
+			tell window 1 to make new tab with
+properties {URL:theUrl}
+		end if
+	end tell
+
+tell application "Google Chrome"
+		activate
+		set theUrl to "http://stella.atilf.fr/"
+		
+		
+		if (count every window) = 0 then
+			make new window
+		end if
+		
+		set found to false
+		set theTabIndex to -1
+		repeat with theWindow in every window
+			set theTabIndex to 0
+			repeat with theTab in every tab of theWindow
+				set theTabIndex to theTabIndex + 1
+				if theTab's URL = theUrl then
+					set found to true
+					exit repeat
+				end if
+			end repeat
+			
+			if found then
+				exit repeat
+			end if
+		end repeat
+		
+		if found then
+			tell theTab to reload
+			set theWindow's active tab index to
+theTabIndex
+			set index of theWindow to 1
+		else
+			tell window 1 to make new tab with
+properties {URL:theUrl}
+		end if
+	end tell
+
+
+tell application "Google Chrome"
+		activate
+		set theUrl to
+"http://www.linguee.com/english-french/search?source=auto&query="
+& inputText
+		
+		
+		if (count every window) = 0 then
+			make new window
+		end if
+		
+		set found to false
+		set theTabIndex to -1
+		repeat with theWindow in every window
+			set theTabIndex to 0
+			repeat with theTab in every tab of theWindow
+				set theTabIndex to theTabIndex + 1
+				if theTab's URL = theUrl then
+					set found to true
+					exit repeat
+				end if
+			end repeat
+			
+			if found then
+				exit repeat
+			end if
+		end repeat
+		
+		if found then
+			tell theTab to reload
+			set theWindow's active tab index to
+theTabIndex
+			set index of theWindow to 1
+		else
+			tell window 1 to make new tab with
+properties {URL:theUrl}
+		end if
+	end tell
+	
+end run
+
+---------------------------------------------------------
+-- LEGAL SEARCH (multiple sites in tabs)
+-- searches canlii, google for gc.ca, linguee, and termium
+----------------------------------------------------------
+
+on run {input, parameters}
+	
+	
+	-- Automator Service for passing selected text (after
+selection the service from context menu) to Legal sources (works in
+Google Chrome, OS X 10.10 still up-to-date)
+	
+	set inputText to input as string
+	
+	
+	tell application "Google Chrome"
+		activate
+		set theUrl to
+"https://www.canlii.org/en/#search/text=" & inputText
+		
+		
+		if (count every window) = 0 then
+			make new window
+		end if
+		
+		set found to false
+		set theTabIndex to -1
+		repeat with theWindow in every window
+			set theTabIndex to 0
+			repeat with theTab in every tab of theWindow
+				set theTabIndex to theTabIndex + 1
+				if theTab's URL = theUrl then
+					set found to true
+					exit repeat
+				end if
+			end repeat
+			
+			if found then
+				exit repeat
+			end if
+		end repeat
+		
+		if found then
+			tell theTab to reload
+			set theWindow's active tab index to
+theTabIndex
+			set index of theWindow to 1
+		else
+			tell window 1 to make new tab with
+properties {URL:theUrl}
+		end if
+	end tell
+	tell application "Google Chrome"
+		activate
+		set theUrl to
+"http://www.btb.termiumplus.gc.ca/tpv2alpha/alpha-eng.html?lang=eng&i=1&srchtxt="
+& inputText
+		
+		
+		if (count every window) = 0 then
+			make new window
+		end if
+		
+		set found to false
+		set theTabIndex to -1
+		repeat with theWindow in every window
+			set theTabIndex to 0
+			repeat with theTab in every tab of theWindow
+				set theTabIndex to theTabIndex + 1
+				if theTab's URL = theUrl then
+					set found to true
+					exit repeat
+				end if
+			end repeat
+			
+			if found then
+				exit repeat
+			end if
+		end repeat
+		
+		if found then
+			tell theTab to reload
+			set theWindow's active tab index to
+theTabIndex
+			set index of theWindow to 1
+		else
+			tell window 1 to make new tab with
+properties {URL:theUrl}
+		end if
+	end tell
+	tell application "Google Chrome"
+		activate
+		set theUrl to
+"http://www.linguee.com/english-french/search?source=auto&query="
+& inputText
+		
+		
+		if (count every window) = 0 then
+			make new window
+		end if
+		
+		set found to false
+		set theTabIndex to -1
+		repeat with theWindow in every window
+			set theTabIndex to 0
+			repeat with theTab in every tab of theWindow
+				set theTabIndex to theTabIndex + 1
+				if theTab's URL = theUrl then
+					set found to true
+					exit repeat
+				end if
+			end repeat
+			
+			if found then
+				exit repeat
+			end if
+		end repeat
+		
+		if found then
+			tell theTab to reload
+			set theWindow's active tab index to
+theTabIndex
+			set index of theWindow to 1
+		else
+			tell window 1 to make new tab with
+properties {URL:theUrl}
+		end if
+	end tell
+
+	tell application "Google Chrome"
+		activate
+		set theUrl to
+"https://www.google.ca/#q=in:site+gc.ca+" & inputText
+		
+		
+		if (count every window) = 0 then
+			make new window
+		end if
+		
+		set found to false
+		set theTabIndex to -1
+		repeat with theWindow in every window
+			set theTabIndex to 0
+			repeat with theTab in every tab of theWindow
+				set theTabIndex to theTabIndex + 1
+				if theTab's URL = theUrl then
+					set found to true
+					exit repeat
+				end if
+			end repeat
+			
+			if found then
+				exit repeat
+			end if
+		end repeat
+		
+		if found then
+			tell theTab to reload
+			set theWindow's active tab index to
+theTabIndex
+			set index of theWindow to 1
+		else
+			tell window 1 to make new tab with
+properties {URL:theUrl}
+		end if
+	end tell
+end run
+
+
