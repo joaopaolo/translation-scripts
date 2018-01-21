@@ -23,10 +23,10 @@ Tell application "Microsoft Word" to activate
 -- ACTIVATE PROGRAMS + DO SOMETHING
 -----------------------------------
 
-----------------------------------------------
+--------------------------------------------------------
 -- Open Chrome and send cursor to location bar
--- ;ca  
----------------------------------------------
+-- ;ca  (items starting with ";" = my assigned shortcuts
+--------------------------------------------------------
 tell application "Google Chrome"
 	tell front window
 		activate
@@ -111,13 +111,13 @@ end tell
 -- Send text to thesaurus.com 
 -----------------------------
 
+-- Automator Service for passing selected text (after
+--selection the service from context menu) to Thesaurus.com (works
+-- in Google Chrome, OS X 10.10 still up-to-date)
+
 
 on run {input, parameters}
 	
-	
-	-- Automator Service for passing selected text (after
-selection the service from context menu) to Thesaurus.com (works
-in Google Chrome, OS X 10.10 still up-to-date)
 	
 	set inputText to input as string
 	
@@ -152,8 +152,7 @@ in Google Chrome, OS X 10.10 still up-to-date)
 			set theWindow's active tab index to theTabIndex
 			set index of theWindow to 1
 		else
-			tell window 1 to make new tab with
-properties {URL:theUrl}
+			tell window 1 to make new tab with properties {URL:theUrl}
 		end if
 	end tell
 	
@@ -357,12 +356,10 @@ on run {input, parameters}
 		
 		if found then
 			tell theTab to reload
-			set theWindow's active tab index to
-theTabIndex
+			set theWindow's active tab index to theTabIndex
 			set index of theWindow to 1
 		else
-			tell window 1 to make new tab with
-properties {URL:theUrl}
+			tell window 1 to make new tab with properties {URL:theUrl}
 		end if
 	end tell
 
@@ -432,8 +429,7 @@ tell application "Google Chrome"
 			set theWindow's active tab index to theTabIndex
 			set index of theWindow to 1
 		else
-			tell window 1 to make new tab with
-properties {URL:theUrl}
+			tell window 1 to make new tab with properties {URL:theUrl}
 		end if
 	end tell
 	
@@ -557,8 +553,7 @@ on run {input, parameters}
 			set theWindow's active tab index to theTabIndex
 			set index of theWindow to 1
 		else
-			tell window 1 to make new tab with
-properties {URL:theUrl}
+			tell window 1 to make new tab with properties {URL:theUrl}
 		end if
 	end tell
 
