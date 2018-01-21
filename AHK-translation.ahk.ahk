@@ -1,9 +1,9 @@
-﻿
 
-;-------------------------------------------------
+
+; -------------------------------------------------------------------
 ; SCRIPTS FOR TRANSLATION, EDITING, AND AUTOMATION
 ; Imperfect but working for me. Many borrowed here and there; thanks!
-; -------------------------------------------------
+; -------------------------------------------------------------------
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
@@ -49,13 +49,14 @@ Return
 ; Reminder: # = WinKey; ^ = Ctrl; + = Shift; ! = Alt
 ; -----------------------------------------------------
 
-;ALL HOTKEYS
+; ------------------------------------------------------
+; ALL HOTKEYS
 ; #+l = linguee
 ; ^!c = open all links on clipboard in tabs
 ; #+t = termium
 ; #+w = wordreference (FR>EN)
 ; #+g = google
-; #+; = thesaurus
+; #+; = thesaurus.com
 ;-------------------------------------------------------
 
 
@@ -126,9 +127,9 @@ Clipboard := prevClipboard
 prevClipboard =
 return
 
-; --------------------------------
-;### Search Termium for selection
-; --------------------------------
+; ----------------------------
+; Search Termium for selection
+; ----------------------------
 
 ; IMPORTANT: Set the correct path to your default broswer
 browser="C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
@@ -243,16 +244,20 @@ return
 ; HOME ROW COMPUTING REMAPPING
 ; ----------------------------
 
-; Created by Gustavo Duarte; Modified to my own preferences
+; Created by Gustavo Duarte; modified to my own preferences for writing/editing prose
 ; See http://duartes.org/gustavo/blog/home-row-computing for more information on this script
-; NOTE: WILL NOT WORK until you complete OS remapping as described at link above
+; NOTE: WILL NOT WORK until you complete OS-level remapping as described at link above
 
 
-; ---------------------------------------
-; Appskey = CAPS Lock
+; ------------------------------------------
+; Appskey = CAPS Lock (mapped with Sharpkeys)
 ; NOTE: AppsKey on its own often performs 
-; "right click" operation 
-;----------------------------------------
+; "right click" operations,
+; -------------------------------------------
+
+
+
+; --------------------------------------------
 ; AppsKey + Right hand, home row (j, k, l, ;)
 ; --------------------------------------------
 ; j = down; k = up; l = left; semicolon = right 
@@ -273,11 +278,11 @@ AppsKey & `; up::Send {Blind}{Right Up}
 
 
 ; AppsKey + Right hand, upper row (u,i,o,p)
-; ----------------------------------------------------
+; ----------------------------------------------------------------------------------------
 ; u = erase word back; i = erase word forward; o = skip back 1 word; p = skip ahead 1 word
-; NOTE: "u" and "i" mappings especially beneficial for writing
+; NOTE: "u" and "i" mappings (full word delete) especially beneficial for writing
 ; NOTE: Alternate versions provided for use in gvim; imperfect
-; -----------------------------------------------------
+; ----------------------------------------------------------------------------------------
 
 
 AppsKey & u::SendInput {Ctrl down}{BackSpace}{Ctrl up}
@@ -363,4 +368,4 @@ AppsKey & Enter::SendInput {Ctrl down}{Enter}{Ctrl up}
     Run %A_LoopField%
   }
   ClipBoard := %oCB%
-;-----------------------------------------------------------***
+;-----------------------------------------------------------*
