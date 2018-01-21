@@ -39,11 +39,10 @@ tell application "System Events" to keystroke "l" using command down
 	end tell 
 end tell
 
------
-
+------------------------------------------------------------------------
 -- Open Gmail and resize window
--- NOTE: This works to maximize window; modify for any script that
--- needs window resize
+-- NOTE: Use for any other script where you need to also maximize window
+------------------------------------------------------------------------
 
 set theGmailLink to "YOUR INBOX URL"
 tell application "Google Chrome"
@@ -113,7 +112,7 @@ end tell
 -----------------------------
 
 -- Automator Service for passing selected text (after
---selection the service from context menu) to Thesaurus.com (works
+-- selection the service from context menu) to Thesaurus.com (works
 -- in Google Chrome, OS X 10.10 still up-to-date)
 
 
@@ -201,8 +200,7 @@ on run {input}
 		
 		if found then
 			tell theTab to reload
-			set theWindow's active tab index to
-theTabIndex
+			set theWindow's active tab index to theTabIndex
 			set index of theWindow to 1
 		else
 			tell window 1 to make new tab with
@@ -270,8 +268,8 @@ end run
 
 
 -- Automator Service for passing selected text (after selection the
-service from context menu) to google (works in Google Chrome, OS
-X 10.10 still up-to-date)
+-- service from context menu) to google (works in Google Chrome, OS
+-- X 10.10 still up-to-date)
 
 on run {input}
 	
@@ -315,10 +313,10 @@ on run {input}
 end run
 
 
--------------------------------------------------------------------
--- FR LOOKUP - Send text to Wordreference, Linguee and TLF (3 tabs)
+-----------------------------------------------------------------------
+-- FR LOOKUP - Send text to Wordreference, Linguee and TLF (3 new tabs)
 -- (Work in progress: TLF does not work properly.)
--------------------------------------------------------------------
+-----------------------------------------------------------------------
 
 -- Automator Service for passing selected text (after
 -- selection the service from context menu) to Wordreference + TLF
