@@ -355,6 +355,149 @@ AppsKey & Enter::SendInput {Ctrl down}{Enter}{Ctrl up}
 
 
 
+; ------------------------------------------
+; LAUNCH APPS (WinKey 1-9) FROM HOMEROW
+; NOTE: Remaps right Winky to right Alt; advisability depends on keyboard
+; -----------------------------------------------------------------------
+
+
+;Remap right alt to Windows key 
+RAlt::Rwin
+
+;Remap easy Alt+F4 to close windows
+RAlt & v::Send !{F4}
+
+;Left hand=launch apps 1-5 in dock
+RAlt & a::
+SendInput {RWin Down}{1}
+SendInput {Rwin Up}
+return
+
+RAlt & s::
+SendInput {RWin Down}{2}
+SendInput {Rwin Up}
+return
+
+
+RAlt & d::
+SendInput {RWin Down}{3}
+SendInput {Rwin Up}
+SendInput {Enter}
+return 
+
+RAlt & f::
+SendInput {RWin Down}{4}
+SendInput {Rwin Up}
+return 
+
+RAlt & g::
+SendInput {RWin Down}{5}
+SendInput {Rwin Up}
+return 
+
+;Right hand=launch apps 6-10 in dock; 
+;NO SEMICOLON= "i" to launch app #9
+
+
+RAlt & h::
+SendInput {RWin Down}{6}
+SendInput {Rwin Up}
+return
+
+RAlt & j::
+SendInput {RWin Down}{7}
+SendInput {Rwin Up}
+return
+
+RAlt & k::
+SendInput {RWin Down}{8}
+SendInput {Rwin Up}
+return
+
+RAlt & i::
+SendInput {RWin Down}{9}
+SendInput {Rwin Up}
+return
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+; -----------
+; IN WORDFAST
+; -----------
+
+;----------------------------------
+;copy source and go to next segment 
+;----------------------------------
+
+!W::
+
+Send !{c}
+Sleep, 200
+Send !{f}
+Sleep, 100
+return
+
+
+;---------------------------------------------
+; erase one word forward but not the tag after
+; NOTE: NEEDS WORK
+; --------------------------------------------
+
+!y::
+SendInput {Ctrl down}{Right}
+SendInput {Ctrl up}
+;Sleep, 50
+SendInput {Left}
+SendInput {Ctrl down}{Backspace}
+SendInput {Ctrl up}
+Sleep, 50
+return
+
+;----------------------------------------------------
+; erase to end of segment, commit, go to next segment
+; ---------------------------------------------------
+!F8::
+Send {Shift Down}{Down 4}
+Send {Shift Up}
+Sleep, 100
+Send {Delete}
+Sleep, 200
+Send !{f}
+Sleep, 400
+Send ^+{v}
+Sleep, 400
+Send ^{Home}
+return
+
+; -----------------------
+; erase to end of segment
+; -----------------------
+
+!F9::
+Send {Shift Down}{Down 4}
+Send {Shift Up}
+Sleep, 100
+Send {Delete}
+Sleep, 200
+
+
+
+
 ; -----------------------------
 ; OPEN ALL COPIED LINKS IN TABS
 ; -----------------------------
