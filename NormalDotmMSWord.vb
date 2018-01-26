@@ -1,3 +1,9 @@
+' The contents of my "normal.dotm" (Word macros)
+' Mostly useful for editing, writing, or translating
+' Many origially written by Paul Beverly and accessed from his site:
+' http://www.archivepub.co.uk/macros.html
+
+
 Sub ChangeDoubleStraightQuotes()
 'Update 20131107
 Selection.Find.ClearFormatting
