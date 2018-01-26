@@ -1,7 +1,8 @@
 ' The contents of my "normal.dotm" (Word macros)
 ' Mostly useful for editing, writing, or translating
-' Many origially written by Paul Beverly and accessed from his site:
+' Many originally written by Paul Beverly and accessed from his site:
 ' http://www.archivepub.co.uk/macros.html
+' an unparalleled source for quality editing macros. 
 
 
 Sub ChangeDoubleStraightQuotes()
