@@ -27,11 +27,10 @@ return
 
 ; etc.
 
--------------------------------------------------------------
+; -----------------------------------------------------------
 ; COPY TO TEXT
-; Create running list in text file without interrupting task:
-; use hotkey to send selected text to .txt file for later use.
---------------------------------------------------------------
+; Use hotkey to send selected text to .txt file for later use
+; ------------------------------------------------------------
 
 ^#c::
 clipboard := "" 
